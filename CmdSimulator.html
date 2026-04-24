@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CMD Coding Course</title>
+<style>
+    body {
+        margin: 0;
+        background: black;
+        color: #00ff00;
+        font-family: monospace;
+    }
+
+    #terminal {
+        padding: 20px;
+        height: 100vh;
+        overflow-y: auto;
+    }
+
+    .line {
+        margin: 5px 0;
+    }
+
+    .input-line {
+        display: flex;
+    }
+
+    .prompt {
+        margin-right: 5px;
+    }
+
+    input {
+        background: black;
+        border: none;
+        color: #00ff00;
+        font-family: monospace;
+        outline: none;
+        width: 100%;
+    }
+</style>
+</head>
+<body>
+
+<div id="terminal"></div>
+
+<script>
+const terminal = document.getElementById("terminal");
+
+let step = 0;
+
+function printLine(text) {
+    const div = document.createElement("div");
+    div.className = "line";
+    div.textContent = text;
+    terminal.appendChild(div);
+    terminal.scrollTop = terminal.scrollHeight;
+}
+
+function createInput() {
+    const line = document.createElement("div");
+    line.className = "input-line";
+
+    const prompt = document.createElement("span");
+    prompt.className = "prompt";
+    prompt.textContent = ">";
+
+    const input = document.createElement("input");
+
+    input.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+            const value = input.value.trim();
+            handleCommand(value);
+            line.remove();
+        }
+    });
+
+    line.appendChild(prompt);
+    line.appendChild(input);
+    terminal.appendChild(line);
+
+    // ensure focus always works
+    setTimeout(() => input.focus(), 0);
+}
+
+function handleCommand(cmd) {
+    printLine("> " + cmd);
+
+    if (step === 0) {
+        if (cmd.toLowerCase() === "hello world") {
+            printLine("Nice! You printed your first message.");
+            step++;
+            lesson();
+        } else {
+            printLine("Try typing: hello world");
+        }
+    } 
+    else if (step === 1) {
+        if (cmd === "4" || cmd === "2+2") {
+            printLine("Correct! 2+2 = 4");
+            step++;
+            lesson();
+        } else {
+            printLine("Try solving: 2+2");
+        }
+    } 
+    else if (step === 2) {
+        if (cmd.toLowerCase() === "print name") {
+            printLine("Good! You're learning commands.");
+            step++;
+            lesson();
+        } else {
+            printLine("Type: print name");
+        }
+    } 
+    else {
+        printLine("Course complete! 🎉");
+        return; // stop creating new inputs
+    }
+
+    createInput();
+}
+
+function lesson() {
+    if (step === 0) {
+        printLine("Lesson 1: Type 'hello world' to simulate your first program.");
+    } 
+    else if (step === 1) {
+        printLine("Lesson 2: Solve a simple math problem. Type '2+2' or '4'.");
+    } 
+    else if (step === 2) {
+        printLine("Lesson 3: Simulate a command. Type 'print name'.");
+    }
+}
+
+// Start
+printLine("Welcome to the CMD Coding Course");
+lesson();
+createInput();
+</script>
+
+</body>
+<a href="HackerzCourse.html" class="Back-button">Back</a>
+     <link rel="stylesheet" href="Style.css">
+</html>
