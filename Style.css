@@ -79,3 +79,10 @@ h1 {
 .Donate-Button:hover {
     background-color: #00cc29;
 }
+.back-button {
+    padding: 10px 20px;
+    font-size: 15px;
+}
+.back-button:hover {
+    background-color: #cc0000;
+}
